@@ -1,7 +1,0 @@
-{
-  "{packages,examples}/*/{src,test}/**/*!(expected).js": [
-    "prettier --write",
-    "eslint --fix",
-    "git add"
-  ]
-}
