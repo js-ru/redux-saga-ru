@@ -1,56 +1,58 @@
-# Beginner Tutorial
+# Руководство для начинающих
 
-## Objectives of this tutorial
+## Цели этого руководства
 
 This tutorial attempts to introduce redux-saga in a (hopefully) accessible way.
 
-For our getting started tutorial, we are going to use the trivial Counter demo from the Redux repo. The application is quite basic but is a good fit to illustrate the basic concepts of redux-saga without being lost in excessive details.
+В этом вводном руководстве делается попытка внедрить redux-saga в (я надеюсь) доступном виде.
 
-### The initial setup
+Для первых шагов нашего руководства мы собираемся использовать простой пример счётчика (Counter) из репозитория Redux. Приложение довольно простое, но оно хорошо подходит для иллюстрации основных концепций redux-saga, не вдаваясь в лишние подробности.
 
-Before we start, clone the [tutorial repository](https://github.com/redux-saga/redux-saga-beginner-tutorial).
+### Начальная установка
 
-> The final code of this tutorial is located in the `sagas` branch.
+Прежде чем начать, склонируйте [репозиторий с руководством](https://github.com/redux-saga/redux-saga-beginner-tutorial).
 
-Then in the command line, run:
+> Окончательный код обучающего руководство находится в ветке `sagas`.
+
+Затем в командной строке выполните:
 
 ```sh
 $ cd redux-saga-beginner-tutorial
 $ npm install
 ```
 
-To start the application, run:
+Для запуска приложения введите:
 
 ```sh
 $ npm start
 ```
 
-We are starting with the most basic use case: 2 buttons to `Increment` and `Decrement` a counter. Later, we will introduce asynchronous calls.
+Мы начинаем с самого простого варианта использования: 2 кнопки счётчика — `Increment` и `Decrement`. Позже мы реализуем асинхронные вызовы.
 
-If things go well, you should see 2 buttons `Increment` and `Decrement` along with a message below showing `Counter: 0`.
+Если всё хорошо, то вы увидите две кнопки `Increment` и `Decrement` вместе с сообщением ниже, показывающим `Counter: 0`.
 
-> In case you encountered an issue with running the application. Feel free to create an issue on the [tutorial repo](https://github.com/redux-saga/redux-saga-beginner-tutorial/issues).
+> В случае, если у вас возникла проблема с запуском приложения, не стесняйтесь создавать ишью в [репозитории введения](https://github.com/redux-saga/redux-saga-beginner-tutorial/issues).
 
-## Hello Sagas!
+## Привет, Saga!
 
-We are going to create our first Saga. Following the tradition, we will write our 'Hello, world' version for Sagas.
+Мы собираемся создать нашу первую Saga. Следуя сложившийся традиции, мы напишем свою версию «Hello, world» для Saga.
 
-Create a file `sagas.js` then add the following snippet:
+Создайте файл `sagas.js`, затем добавьте следующий фрагмент кода:
 
 ```javascript
 export function* helloSaga() {
-  console.log('Hello Sagas!')
+  console.log('Привет, Saga!')
 }
 ```
 
-So nothing scary, just a normal function (except for the `*`). All it does is print a greeting message into the console.
+Итак, ничего страшного, просто обычная функция (за исключением `*`). Всё, что она делает, так это выводит в консоль приветственное сообщение.
 
-In order to run our Saga, we need to:
+Чтобы запустить нашу Saga, нам необходимо:
 
-- create a Saga middleware with a list of Sagas to run (so far we have only one `helloSaga`)
-- connect the Saga middleware to the Redux store
+- создать мидлвар Saga со списком Saga для выполнения (на данный момент у нас есть только один `helloSaga`)
+- подключить мидлвар Saga к хранилищу Redux
 
-We will make the changes to `main.js`:
+Мы внесем изменения в `main.js`:
 
 ```javascript
 // ...
@@ -69,14 +71,14 @@ sagaMiddleware.run(helloSaga)
 
 const action = type => store.dispatch({type})
 
-// rest unchanged
+// остальное не изменилось
 ```
 
-First we import our Saga from the `./sagas` module. Then we create a middleware using the factory function `createSagaMiddleware` exported by the `redux-saga` library.
+Сначала мы импортируем нашу Saga из модуля `./sagas`. Затем мы создаём мидлвар, используя фабричную функцию `createSagaMiddleware`, экспортированную из библиотеки `redux-saga`.
 
-Before running our `helloSaga`, we must connect our middleware to the Store using `applyMiddleware`. Then we can use the `sagaMiddleware.run(helloSaga)` to start our Saga.
+Прежде чем запускать наш `helloSaga`, мы должны подключить наш мидлвар к хранилищу с помощью` applyMiddleware`. Затем мы можем использовать `sagaMiddleware.run(helloSaga)`, чтобы запустить нашу Saga.
 
-So far, our Saga does nothing special. It just logs a message then exits.
+Пока что наша Saga не делает ничего особенного: она просто логирует сообщение.
 
 ## Making Asynchronous calls
 
