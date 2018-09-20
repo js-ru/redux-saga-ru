@@ -4,7 +4,7 @@
 
 ## redux-saga
 
-[![npm version](https://img.shields.io/npm/v/redux-saga.svg)](https://www.npmjs.com/package/redux-saga) [![CDNJS](https://img.shields.io/cdnjs/v/redux-saga.svg)](https://cdnjs.com/libraries/redux-saga) [![npm](https://img.shields.io/npm/dm/redux-saga.svg)](https://www.npmjs.com/package/redux-saga) [![Build Status](https://travis-ci.org/redux-saga/redux-saga.svg?branch=master)](https://travis-ci.org/redux-saga/redux-saga) [![Join the chat at https://gitter.im/yelouafi/redux-saga](https://badges.gitter.im/yelouafi/redux-saga.svg)](https://gitter.im/yelouafi/redux-saga?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![OpenCollective](https://opencollective.com/redux-saga/backers/badge.svg)](./#backers) [![OpenCollective](https://opencollective.com/redux-saga/sponsors/badge.svg)](./#sponsors)
+[![npm version](https://img.shields.io/npm/v/redux-saga.svg)](https://www.npmjs.com/package/redux-saga) [![CDNJS](https://img.shields.io/cdnjs/v/redux-saga.svg)](https://cdnjs.com/libraries/redux-saga) [![npm](https://img.shields.io/npm/dm/redux-saga.svg)](https://www.npmjs.com/package/redux-saga) [![Build Status](https://travis-ci.org/redux-saga/redux-saga.svg?branch=master)](https://travis-ci.org/redux-saga/redux-saga) [![Join the chat at https://gitter.im/yelouafi/redux-saga](https://badges.gitter.im/yelouafi/redux-saga.svg)](https://gitter.im/yelouafi/redux-saga?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![OpenCollective](https://opencollective.com/redux-saga/backers/badge.svg)](readme.md#backers) [![OpenCollective](https://opencollective.com/redux-saga/sponsors/badge.svg)](readme.md#sponsors)
 
 `redux-saga` — это библиотека, которая призвана упростить и улучшить побочные эффектов \(т.е. таких действий как асинхронные операции, например, загрузки данных и "грязных" действий, таких как доступ к браузерному кешу\), сделать лёгкими в тестировании и лучше справляться с ошибками.
 
@@ -26,7 +26,7 @@ $ npm install --save redux-saga
 $ yarn add redux-saga
 ```
 
-Альтернативно, вы можете использовать предоставленные UMD сборки напрямую в `<script>` на HTML странице. Смотрите [эту секцию](./#using-umd-build-in-the-browser).
+Альтернативно, вы можете использовать предоставленные UMD сборки напрямую в `<script>` на HTML странице. Смотрите [эту секцию](readme.md#using-umd-build-in-the-browser).
 
 ### Пример использования
 
