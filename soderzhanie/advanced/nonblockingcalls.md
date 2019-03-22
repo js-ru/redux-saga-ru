@@ -1,4 +1,4 @@
-# 3.2 Неблокирующие вызвы
+# 3.2 Неблокирующие вызовы
 
 In the previous section, we saw how the `take` Effect allows us to better describe a non-trivial flow in a central place.
 
