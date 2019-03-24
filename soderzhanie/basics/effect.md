@@ -1,4 +1,4 @@
-# 2.5 Распространёная абстрация: Эффект
+# 2.5 Распространёная абстракция: Эффект
 
 To generalize, triggering Side Effects from inside a Saga is always done by yielding some declarative Effect. \(You can also yield Promise directly, but this will make testing difficult as we saw in the first section.\)
 
