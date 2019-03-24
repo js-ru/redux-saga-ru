@@ -6,7 +6,7 @@
 
 [![npm version](https://img.shields.io/npm/v/redux-saga.svg)](https://www.npmjs.com/package/redux-saga) [![CDNJS](https://img.shields.io/cdnjs/v/redux-saga.svg)](https://cdnjs.com/libraries/redux-saga) [![npm](https://img.shields.io/npm/dm/redux-saga.svg)](https://www.npmjs.com/package/redux-saga) [![Build Status](https://travis-ci.org/redux-saga/redux-saga.svg?branch=master)](https://travis-ci.org/redux-saga/redux-saga) [![Join the chat at https://gitter.im/yelouafi/redux-saga](https://badges.gitter.im/yelouafi/redux-saga.svg)](https://gitter.im/yelouafi/redux-saga?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![OpenCollective](https://opencollective.com/redux-saga/backers/badge.svg)](./#backers) [![OpenCollective](https://opencollective.com/redux-saga/sponsors/badge.svg)](./#sponsors)
 
-`redux-saga` — это библиотека, которая призвана упростить и улучшить побочные эффектов \(т.е. таких действий как асинхронные операции, например, загрузки данных и "грязных" действий, таких как доступ к браузерному кешу\), сделать лёгкими в тестировании и лучше справляться с ошибками.
+`redux-saga` — это библиотека, которая призвана упростить и улучшить побочные эффекты \(т.е. такие действия, как асинхронные операции, например, загрузки данных, и "грязные" действия, такие, как доступ к браузерному кешу\), сделать лёгкими в тестировании и лучше справляться с ошибками.
 
 Можно представить это так, что saga — это как отдельный поток в вашем приложении, который отвечает за побочные эффекты. `redux-saga` — это мидлвар redux, что означает, что этот поток может запускаться, останавливаться и отменяться из основного приложения с помощью обычных действий redux, оно имеет доступ к полному состоянию redux приложения и также может диспатчить действия redux.
 
@@ -62,7 +62,7 @@ function* fetchUser(action) {
 }
 
 /*
-  Запускаем `fetchUser` на каждый задиспатченое действие `USER_FETCH_REQUESTED`.
+  Запускаем `fetchUser` на каждое задиспатченное действие `USER_FETCH_REQUESTED`.
   Позволяет одновременно получать данные пользователей.
 */
 function* mySaga() {
