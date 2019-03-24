@@ -1,41 +1,41 @@
 # 1.1 Руководство для начинающих
 
-## Objectives of this tutorial
+## Цели этого урока
 
-This tutorial attempts to introduce redux-saga in a \(hopefully\) accessible way.
+Это руководство попытается представить redux-saga в (надеюсь) доступной форме.
 
-For our getting started tutorial, we are going to use the trivial Counter demo from the Redux repo. The application is quite basic but is a good fit to illustrate the basic concepts of redux-saga without being lost in excessive details.
+Для нашего начального урока мы будем использовать обычный демо-счётчик из Redux репозитория. Приложение довольно простое, но оно хорошо подходит для иллюстрации основных концепций redux-saga, не теряясь при этом в излишних деталях.
 
-### The initial setup
+### Начальная настройка
 
-Before we start, clone the [tutorial repository](https://github.com/redux-saga/redux-saga-beginner-tutorial).
+Перед тем, как мы начнём, склонируйте [учебный репозиторий](https://github.com/redux-saga/redux-saga-beginner-tutorial).
 
-> The final code of this tutorial is located in the `sagas` branch.
+> Окончательный код этого урока находится в ветке `sagas`.
 
-Then in the command line, run:
+Затем в командной строке введите:
 
 ```bash
 $ cd redux-saga-beginner-tutorial
 $ npm install
 ```
 
-To start the application, run:
+Для запуска приложения введите:
 
 ```bash
 $ npm start
 ```
 
-We are starting with the most basic use case: 2 buttons to `Increment` and `Decrement` a counter. Later, we will introduce asynchronous calls.
+Мы начинаем с самого простого варианта использования: 2 кнопки для `Увеличения` и `Уменьшения` счётчика. Позже мы познакомимся с асинхронными вызовами.
 
-If things go well, you should see 2 buttons `Increment` and `Decrement` along with a message below showing `Counter: 0`.
+Если запуск прошёл успешно, вы увидите 2 кнопки `Increment` и `Decrement` вместе с сообщением ниже `Counter: 0`.
 
-> In case you encountered an issue with running the application. Feel free to create an issue on the [tutorial repo](https://github.com/redux-saga/redux-saga-beginner-tutorial/issues).
+> В случае, если вы столкнулись с проблемами при запуске приложения, не стесняйтесь создавать issue в [репозитории учебника](https://github.com/redux-saga/redux-saga-beginner-tutorial/issues).
 
-## Hello Sagas!
+## Привет, Саги!
 
-We are going to create our first Saga. Following the tradition, we will write our 'Hello, world' version for Sagas.
+Мы собираемся создать нашу первую Сагу. По традиции мы напишем нашу версию 'Привет, мир' для Саг.
 
-Create a file `sagas.js` then add the following snippet:
+Создайте файл `sagas.js` и добавьте в него следующий кусок кода:
 
 ```javascript
 export function* helloSaga() {
@@ -43,14 +43,14 @@ export function* helloSaga() {
 }
 ```
 
-So nothing scary, just a normal function \(except for the `*`\). All it does is print a greeting message into the console.
+Он совсем не страшный, это просто обычная функция \(кроме `*`\). Всё, что она делает - это выводит приветственное сообщение в консоль.
 
-In order to run our Saga, we need to:
+Для запуска нашей Саги нужно:
 
-* create a Saga middleware with a list of Sagas to run \(so far we have only one `helloSaga`\)
-* connect the Saga middleware to the Redux store
+* создать промежуточный слой (Saga middleware) со списком наших Саг, которые мы хотим запустить (пока что у нас есть только `helloSaga`)
+* подключить этот промежуточный слой к хранилищу Redux (Redux store)
 
-We will make the changes to `main.js`:
+ Мы внесём следующие изменения в файл `main.js`:
 
 ```javascript
 // ...
@@ -69,20 +69,20 @@ sagaMiddleware.run(helloSaga)
 
 const action = type => store.dispatch({type})
 
-// rest unchanged
+// остальное не изменилось
 ```
 
-First we import our Saga from the `./sagas` module. Then we create a middleware using the factory function `createSagaMiddleware` exported by the `redux-saga` library.
+Сначала мы импортируем нашу Сагу из модуля `./sagas`. Затем мы создаём промежуточный слой (middleware), используя фабричную функцию `createSagaMiddleware`, которая экспортируется из библиотеки `redux-saga`.
 
-Before running our `helloSaga`, we must connect our middleware to the Store using `applyMiddleware`. Then we can use the `sagaMiddleware.run(helloSaga)` to start our Saga.
+Перед запуском нашей `helloSaga` мы должны подключить наш промежуточный слой (middleware) к Хранилищу (Store), используя `applyMiddleware`. После этого мы сможем использовать `sagaMiddleware.run(helloSaga)` для запуска нашей Саги.
 
-So far, our Saga does nothing special. It just logs a message then exits.
+Пока что наша Сага не делает ничего особенного. Она просто выводит сообщение, затем завершается.
 
-## Making Asynchronous calls
+## Создание асинхронных вызовов
 
-Now let's add something closer to the original Counter demo. To illustrate asynchronous calls, we will add another button to increment the counter 1 second after the click.
+Теперь давайте добавим что-нибудь, чтобы приблизиться к оригинальному демо-счётчику. Чтобы проиллюстрировать асинхронные вызовы, мы добавим ещё одну кнопку, которая будет увеличивать счётчик через 1 секунду после клика.
 
-First things first, we'll provide an additional button and a callback `onIncrementAsync` to the UI component.
+Перво-наперво мы добавим кнопку и функцию обратного вызова `onIncrementAsync` в UI компонент.
 
 ```javascript
 const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>
@@ -105,9 +105,9 @@ const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) =>
   </div>
 ```
 
-Next we should connect the `onIncrementAsync` of the Component to a Store action.
+Затем мы должны подключить `onIncrementAsync` Компонента к действию Хранилища (Store action)
 
-We will modify the `main.js` module as follows
+Мы изменим модуль `main.js` следующим образом:
 
 ```javascript
 function render() {
@@ -122,15 +122,15 @@ function render() {
 }
 ```
 
-Note that unlike in redux-thunk, our component dispatches a plain object action.
+Обратите внимание, что в отличие от redux-thunk, наш компонент отправляет (dispatches) действие (action) в виде простого объекта.
 
-Now we will introduce another Saga to perform the asynchronous call. Our use case is as follows:
+Теперь мы представим другую Сагу для выполнения асинхронного вызова. Наш вариант использования выглядит следующим образом:
 
-> On each `INCREMENT_ASYNC` action, we want to start a task that will do the following
+> На каждое `INCREMENT_ASYNC` действие (action), мы хотим запустить задачу, которая будет делать следующее:
 >
-> * Wait 1 second then increment the counter
+> * Подождать 1 секунду, затем увеличить счётчик
 
-Add the following code to the `sagas.js` module:
+Добавьте следующий код в модуль `sagas.js`:
 
 ```javascript
 import { put, takeEvery } from 'redux-saga/effects'
@@ -139,33 +139,33 @@ const delay = (ms) => new Promise(res => setTimeout(res, ms))
 
 // ...
 
-// Our worker Saga: will perform the async increment task
+// Наша Сага-рабочий (worker Saga): будет выполнять асинхронную задачу увеличения счётчика
 export function* incrementAsync() {
   yield delay(1000)
   yield put({ type: 'INCREMENT' })
 }
 
-// Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC
+// Наша Сага-наблюдатель: создаёт новые incrementAsync задачи на каждом INCREMENT_ASYNC
 export function* watchIncrementAsync() {
   yield takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
 ```
 
-Time for some explanations.
+Время для объяснений.
 
-We create a `delay` function that returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that will resolve after a specified number of milliseconds. We'll use this function to _block_ the Generator.
+Мы создали функцию `delay`, которая возвращает [обещание (Promise)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), которое в свою очередь разрешается (resolve) через указанное количество миллисекунд. Мы будем использовать эту функцию, чтобы _заблокировать_ Генератор.
 
-Sagas are implemented as [Generator functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) that _yield_ objects to the redux-saga middleware. The yielded objects are a kind of instruction to be interpreted by the middleware. When a Promise is yielded to the middleware, the middleware will suspend the Saga until the Promise completes. In the above example, the `incrementAsync` Saga is suspended until the Promise returned by `delay` resolves, which will happen after 1 second.
+Саги реализованы на [функциях-генераторах](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*), которые _передают (yield)_ объекты промежуточному слою саг (redux-saga middleware). Переданные объекты это своего рода инструкции, которые должны интерпретироваться промежуточным слоем (middleware). Когда Обещание (Promise) передаётся промежуточному слою, тот в свою очередь приостанавливает Сагу до тех пор, пока Обещание не выполнится. В примере выше Сага `incrementAsync` приостанавливается до тех пор, пока Обещание, возвращённое функцией `delay` не разрешится (resolve), что произойдёт через 1 секунду.
 
-Once the Promise is resolved, the middleware will resume the Saga, executing code until the next yield. In this example, the next statement is another yielded object: the result of calling `put({type: 'INCREMENT'})`, which instructs the middleware to dispatch an `INCREMENT` action.
+Как только Обещание разрешится, промежуточный слой возобновит выполнение кода Саги до следующего yield. В этом примере следующее заявление - это другой переданный (yielded) объект, результат вызова `put({type: 'INCREMENT'})`, который сообщает промежуточному слою отправить (dispatch) действие `INCREMENT`.
 
-`put` is one example of what we call an _Effect_. Effects are plain JavaScript objects which contain instructions to be fulfilled by the middleware. When a middleware retrieves an Effect yielded by a Saga, the Saga is paused until the Effect is fulfilled.
+`put` это пример того, что мы называем _Эффектом_. Эффекты - это простые JavaScript объекты. Они содержат инструкции, которые должны быть выполнены промежуточным слоем. Когда промежуточный слой извлекает Эффект, переданный Сагой, Сага приостанавливается до тех пор, пока Эффект не выполнится.
 
-So to summarize, the `incrementAsync` Saga sleeps for 1 second via the call to `delay(1000)`, then dispatches an `INCREMENT` action.
+Подведём итог. Сага `incrementAsync` спит 1 секунду при помощи вызова `delay(1000)`, затем отправляет (dispatches) действие `INCREMENT`.
 
-Next, we created another Saga `watchIncrementAsync`. We use `takeEvery`, a helper function provided by `redux-saga`, to listen for dispatched `INCREMENT_ASYNC` actions and run `incrementAsync` each time.
+Теперь мы создадим другую Сагу `watchIncrementAsync`. Мы будет использовать `takeEvery` - это вспомогательная функция, которая предоставляется `redux-saga` для прослушивания отправленных `INCREMENT_ASYNC` действий и запуска `incrementAsync` при каждой отправке.
 
-Now we have 2 Sagas, and we need to start them both at once. To do that, we'll add a `rootSaga` that is responsible for starting our other Sagas. In the same file `sagas.js`, refactor the file as follows:
+Теперь у нас 2 Саги, и нам нужно запустить их одновременно. Чтобы сделать это, мы добавим `rootSaga`, которая отвечает за запуск других наших Саг. Отредактируйте файл `sagas.js` следующим образом:
 
 ```javascript
 import { put, takeEvery, all } from 'redux-saga/effects'
@@ -185,8 +185,8 @@ export function* watchIncrementAsync() {
   yield takeEvery('INCREMENT_ASYNC', incrementAsync)
 }
 
-// notice how we now only export the rootSaga
-// single entry point to start all Sagas at once
+// обратите внимание, как мы экспортируем rootSaga
+// единая точка входа для запуска всех Саг одновременно
 export default function* rootSaga() {
   yield all([
     helloSaga(),
@@ -195,7 +195,7 @@ export default function* rootSaga() {
 }
 ```
 
-This Saga yields an array with the results of calling our two sagas, `helloSaga` and `watchIncrementAsync`. This means the two resulting Generators will be started in parallel. Now we only have to invoke `sagaMiddleware.run` on the root Saga in `main.js`.
+Эта Сага передаёт массив с результатом вызова двух наших саг: `helloSaga` и `watchIncrementAsync`. Другими словами, два полученных Генератора будут запущены параллельно. Теперь нам осталось только в файле `main.js` вызвать `sagaMiddleware.run` и передать в качестве аргумента `rootSaga`.
 
 ```javascript
 // ...
@@ -208,11 +208,11 @@ sagaMiddleware.run(rootSaga)
 // ...
 ```
 
-## Making our code testable
+## Делаем наш код тестируемым
 
-We want to test our `incrementAsync` Saga to make sure it performs the desired task.
+Мы хотим протестировать нашу `incrementAsync` Сагу чтобы убедиться, что она выполняет желаемое задание.
 
-Create another file `sagas.spec.js`:
+Создадим другой файл `sagas.spec.js`:
 
 ```javascript
 import test from 'tape';
@@ -222,24 +222,24 @@ import { incrementAsync } from './sagas'
 test('incrementAsync Saga test', (assert) => {
   const gen = incrementAsync()
 
-  // now what ?
+  // Что теперь?
 });
 ```
 
-`incrementAsync` is a generator function. When run, it returns an iterator object, and the iterator's `next` method returns an object with the following shape
+`incrementAsync` - это функция-генератор. Во время запуска она возвращает объект-итератор, а метод `next` итератора в свою очередь возвращает объект следующей формы:
 
 ```javascript
 gen.next() // => { done: boolean, value: any }
 ```
 
-The `value` field contains the yielded expression, i.e. the result of the expression after the `yield`. The `done` field indicates if the generator has terminated or if there are still more 'yield' expressions.
+Поле `value` содержит полученное (yielded) выражение, т.е. результат выражения после `yield`. Поле `done` показывает, завершился ли генератор или есть ещё выражения 'yield'.
 
-In the case of `incrementAsync`, the generator yields 2 values consecutively:
+В случае с `incrementAsync` генератор передаёт (yields) 2 значения последовательно:
 
 1. `yield delay(1000)`
 2. `yield put({type: 'INCREMENT'})`
 
-So if we invoke the next method of the generator 3 times consecutively we get the following results:
+Поэтому если мы вызовем метод next генератора 3 раза подряд, то мы получим следующий результат:
 
 ```javascript
 gen.next() // => { done: false, value: <result of calling delay(1000)> }
@@ -247,9 +247,9 @@ gen.next() // => { done: false, value: <result of calling put({type: 'INCREMENT'
 gen.next() // => { done: true, value: undefined }
 ```
 
-The first 2 invocations return the results of the yield expressions. On the 3rd invocation since there is no more yield the `done` field is set to true. And since the `incrementAsync` Generator doesn't return anything \(no `return` statement\), the `value` field is set to `undefined`.
+Первые 2 вызова возвращают результат yield выражений. На 3-й вызов, поскольку yield больше нет, в поле `done` устанавливается значение true. И поскольку Генератор `incrementAsync` не возвращает ничего \(нет директивы `return`\), поле `value` устанавливается в `undefined`.
 
-So now, in order to test the logic inside `incrementAsync`, we'll have to iterate over the returned Generator and check the values yielded by the generator.
+Итак, чтобы проверить логику внутри `incrementAsync`, нам нужно будет перебрать возвращённый Генератор и проверить значения, переданные (yielded) генератором.
 
 ```javascript
 import test from 'tape';
@@ -262,14 +262,14 @@ test('incrementAsync Saga test', (assert) => {
   assert.deepEqual(
     gen.next(),
     { done: false, value: ??? },
-    'incrementAsync should return a Promise that will resolve after 1 second'
+    'incrementAsync должен вернуть Обещание которое разрешится через 1 секунду'
   )
 });
 ```
 
-The issue is how do we test the return value of `delay`? We can't do a simple equality test on Promises. If `delay` returned a _normal_ value, things would've been easier to test.
+Вопрос в том, как мы протестируем возвращённое `delay` значение? Мы не можем сделать простой тест на равенство в Обещаниях (Promises). Если бы `delay` вернула _нормальное_ значение, было бы гораздо проще.
 
-Well, `redux-saga` provides a way to make the above statement possible. Instead of calling `delay(1000)` directly inside `incrementAsync`, we'll call it _indirectly_ and export it to make a subsequent deep comparison possible:
+Что ж, `redux-saga` предоставляет способ сделать приведённое выше утверждение возможным. Вместо вызова `delay(1000)` непосредственно внутри `incrementAsync`, мы будем вызывать его _косвенно_ и экспортировать, чтобы сделать возможным последующее глубокое сравнение:
 
 ```javascript
 import { put, takeEvery, all, call } from 'redux-saga/effects'
@@ -285,20 +285,20 @@ export function* incrementAsync() {
 }
 ```
 
-Instead of doing `yield delay(1000)`, we're now doing `yield call(delay, 1000)`. What's the difference?
+Вместо `yield delay(1000)` мы напишем `yield call(delay, 1000)`. В чём разница?
 
-In the first case, the yield expression `delay(1000)` is evaluated before it gets passed to the caller of `next` \(the caller could be the middleware when running our code. It could also be our test code which runs the Generator function and iterates over the returned Generator\). So what the caller gets is a Promise, like in the test code above.
+В первом случае yield выражение `delay(1000)` выполняется до того, как оно передаётся в качестве результата `next` \(метод next может вызывать как промежуточный слой (middleware), так и наш тестовый код, который вызывает функцию-генератор и перебирает возвращаемый Генератор\). Так что метод next вернёт Обещание (Promise), как в коде для тестов выше.
 
-In the second case, the yield expression `call(delay, 1000)` is what gets passed to the caller of `next`. `call` just like `put`, returns an Effect which instructs the middleware to call a given function with the given arguments. In fact, neither `put` nor `call` performs any dispatch or asynchronous call by themselves, they return plain JavaScript objects.
+Во втором случае yield выражение `call(delay, 1000)` - это то, что возвращается из `next`. `call` как `put`, возвращает Эффект, который указывает промежуточному слою (middleware) вызвать заданную функцию с заданными аргументами. По факту ни `put` ни `call` не выполняют никаких отправок (dispatch) или асинхронных вызовов сами, они возвращают простые JavaScript объекты.
 
 ```javascript
 put({type: 'INCREMENT'}) // => { PUT: {type: 'INCREMENT'} }
 call(delay, 1000)        // => { CALL: {fn: delay, args: [1000]}}
 ```
 
-What happens is that the middleware examines the type of each yielded Effect then decides how to fulfill that Effect. If the Effect type is a `PUT` then it will dispatch an action to the Store. If the Effect is a `CALL` then it'll call the given function.
+Происходит то, что промежуточный слой (middleware) осматривает тип каждого переданного Эффекта, затем решает как выполнить этот Эффект. Если тип Эффекта `PUT`, тогда он отправит (dispatch) действие в Хранилище (Store). Если `CALL` - он вызовет заданную функцию.
 
-This separation between Effect creation and Effect execution makes it possible to test our Generator in a surprisingly easy way:
+Такое разделение между созданием Эффектов и их выполнением позволяет удивительно легко тестировать наш Генератор:
 
 ```javascript
 import test from 'tape';
@@ -331,13 +331,13 @@ test('incrementAsync Saga test', (assert) => {
 });
 ```
 
-Since `put` and `call` return plain objects, we can reuse the same functions in our test code. And to test the logic of `incrementAsync`, we iterate over the generator and do `deepEqual` tests on its values.
+Так как `put` и `call` возвращают простые объекты, мы можем повторно использовать одни и те же функции в нашем тестовом коде. И чтобы протестировать логику `incrementAsync`, мы перебираем генератор и выполняем `deepEqual` тесты на значениях.
 
-In order to run the above test, run:
+Для запуска вышеуказанного теста выполните:
 
 ```bash
 $ npm test
 ```
 
-which should report the results on the console.
+который должен вернуть результаты в консоли.
 
