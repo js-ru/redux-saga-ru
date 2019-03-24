@@ -1,4 +1,4 @@
-# 3.8 Модель форвка redux-saga
+# 3.8 Модель форка redux-saga
 
 In `redux-saga` you can dynamically fork tasks that execute in the background using 2 Effects
 
