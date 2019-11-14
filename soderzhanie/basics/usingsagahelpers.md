@@ -23,7 +23,7 @@ export function* fetchData(action) {
 }
 ```
 
-чтобы запустить вышеуказанную задачу для каждого `FETCH_REQUESTED` действия:
+Чтобы запустить вышеуказанную задачу для каждого `FETCH_REQUESTED` действия:
 
 ```javascript
 import { takeEvery } from 'redux-saga/effects'
