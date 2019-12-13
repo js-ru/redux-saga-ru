@@ -1,14 +1,14 @@
 # 2.1. Использование хелперов Saga
 
-`redux-saga` provides some helper effects wrapping internal functions to spawn tasks when some specific actions are dispatched to the Store.
+`redux-saga` обеспечивает некоторые вспомогательные эффекты для вызова задач, когда некоторые конкретные действия отправляются в `redux-store`.
 
-The helper functions are built on top of the lower level API. In the advanced section, we'll see how those functions can be implemented.
+Вспомогательные функции построены поверх API нижнего уровня. В расширенном разделе мы увидим, как эти функции могут быть реализованы.
 
-The first function, `takeEvery` is the most familiar and provides a behavior similar to `redux-thunk`.
+Первая функция `takeEvery` является наиболее знакомой и обеспечивает поведение, аналогичное `redux-thunk`.
 
-Let's illustrate with the common AJAX example. On each click on a Fetch button we dispatch a `FETCH_REQUESTED` action. We want to handle this action by launching a task that will fetch some data from the server.
+Давайте посмотрим на общем примере AJAX. При каждом нажатии на кнопку мы отправляем действие `FETCH_REQUESTED` action. Мы хотим обработать это действие, запустив задачу, которая будет получать некоторые данные с сервера.
 
-First we create the task that will perform the asynchronous action:
+Сначала мы создадим задачу, которая будет выполнять асинхронное действие:
 
 ```javascript
 import { call, put } from 'redux-saga/effects'
@@ -23,7 +23,7 @@ export function* fetchData(action) {
 }
 ```
 
-To launch the above task on each `FETCH_REQUESTED` action:
+Чтобы запустить вышеуказанную задачу для каждого `FETCH_REQUESTED` действия:
 
 ```javascript
 import { takeEvery } from 'redux-saga/effects'
@@ -33,9 +33,9 @@ function* watchFetchData() {
 }
 ```
 
-In the above example, `takeEvery` allows multiple `fetchData` instances to be started concurrently. At a given moment, we can start a new `fetchData` task while there are still one or more previous `fetchData` tasks which have not yet terminated.
+В приведенном выше примере takeEvery позволяет одновременно запускать несколько fetchData. В данный момент мы можем запустить новую задачу fetchData, пока есть еще одна или несколько предыдущих задач fetchData, которые еще не завершены.
 
-If we want to only get the response of the latest request fired \(e.g. to always display the latest version of data\) we can use the `takeLatest` helper:
+если мы хотим получить только ответ на последний запрос (например, чтобы всегда отображать последнюю версию данных), мы можем использовать помощник `takeLatest`:
 
 ```javascript
 import { takeLatest } from 'redux-saga/effects'
@@ -45,9 +45,9 @@ function* watchFetchData() {
 }
 ```
 
-Unlike `takeEvery`, `takeLatest` allows only one `fetchData` task to run at any moment. And it will be the latest started task. If a previous task is still running when another `fetchData` task is started, the previous task will be automatically cancelled.
+В отличие от takeEvery, takeLatest позволяет запускать только одну задачу fetchData в любой момент. И это будет последняя запущенная задача Если предыдущая задача все еще выполняется при запуске другой задачи `fetchData`, предыдущая задача будет автоматически отменена.
 
-If you have multiple Sagas watching for different actions, you can create multiple watchers with those built-in helpers, which will behave like there was `fork` used to spawn them \(we'll talk about `fork` later. For now, consider it to be an Effect that allows us to start multiple sagas in the background\).
+Если у вас есть несколько `Sags`, наблюдающих за различными действиями, вы можете создать несколько наблюдателей с помощью этих встроенных функций, которые будут вести себя так, если бы они использовали `fork` \ (мы поговорим о` fork` позже. Сейчас рассмотрим пример, который позволяет нам запускать несколько `Sags` на заднем плане \).
 
 For example:
 
