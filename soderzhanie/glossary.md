@@ -1,16 +1,16 @@
 # 7. Глоссарий
 
-This is a glossary of the core terms in Redux Saga.
+Это глоссарий основных терминов Redux Saga.
 
-## Effect
+## Эффект (Effect)
 
-An effect is a plain JavaScript Object containing some instructions to be executed by the saga middleware.
+Это простой JavaScript объект содержащий некоторые инструкции, которые должны выполняться Сага мидлварами.
 
-You create effects using factory functions provided by the redux-saga library. For example you use `call(myfunc, 'arg1', 'arg2')` to instruct the middleware to invoke `myfunc('arg1', 'arg2')` and return the result back to the Generator that yielded the effect
+Вы создаете Эффект, используя фабричные функции, представляемые библиотекой `redux-saga`. Например, вы используете `call(myfunc, 'arg1', 'arg2')` чтобы указать мидлвару вызвать `myfunc('arg1', 'arg2')` и вернуть обратно в Генератор, который вызвал Эффект.
 
-## Task
+## Задача (Task)
 
-A task is like a process running in background. In a redux-saga based application there can be multiple tasks running in parallel. You create tasks by using the `fork` function
+Задача похожа на процесс, работающий в фоновом режиме. В приложении на основе redux-saga может быть несколько параллельно выполняемых задач. Вы создаете задачи используя функцию `fork`
 
 ```javascript
 import {fork} from "redux-saga/effects"
@@ -22,13 +22,12 @@ function* saga() {
 }
 ```
 
-## Blocking/Non-blocking call
+## Блокирующие/Неблокирующие вызовы (Blocking/Non-blocking call)
 
-A Blocking call means that the Saga yielded an Effect and will wait for the outcome of its execution before resuming to the next instruction inside the yielding Generator.
+Блокирующий вызов значит что Saga вызвала Эффект и будет ожидать результата своего выполнения, прежде чем возобновить выполнение следующей инструкции внутри генератора, выдающего результат.
 
-A Non-blocking call means that the Saga will resume immediately after yielding the Effect.
-
-For example
+Неблокирующий вызов означает, что Сага возобновится сразу же после получения Эффекта.
+Например
 
 ```javascript
 import {call, cancel, join, take, put} from "redux-saga/effects"
@@ -47,14 +46,14 @@ function* saga() {
 }
 ```
 
-## Watcher/Worker
+## Наблюдатель/Воркер (Watcher/Worker)
 
-refers to a way of organizing the control flow using two separate Sagas
+относится к способу организации потока управления с использованием двух отдельных Саг.
 
-* The watcher: will watch for dispatched actions and fork a worker on every action
-* The worker: will handle the action and terminate
+* Наблюдатель: будет следить за отправленными действиями и форкнет воркер для каждого действия
+* Воркер: обработает действие и завершит
 
-example
+например
 
 ```javascript
 function* watcher() {
