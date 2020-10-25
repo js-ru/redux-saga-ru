@@ -38,7 +38,7 @@ $ npm start
 Создайте файл `sagas.js` и добавьте в него следующий кусок кода:
 
 ```javascript
-export function* helloSaga() {
+export default function* helloSaga() {
   console.log('Hello Sagas!')
 }
 ```
