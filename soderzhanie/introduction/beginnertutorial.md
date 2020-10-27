@@ -38,7 +38,7 @@ $ npm start
 Создайте файл `sagas.js` и добавьте в него следующий кусок кода:
 
 ```javascript
-export function* helloSaga() {
+export default function* helloSaga() {
   console.log('Hello Sagas!')
 }
 ```
@@ -58,7 +58,7 @@ import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
 // ...
-import { helloSaga } from './sagas'
+import helloSaga from './sagas'
 
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
