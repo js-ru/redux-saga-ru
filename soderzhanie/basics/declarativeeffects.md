@@ -1,14 +1,17 @@
 # 2.2 Декларативные эффекты
 
-In `redux-saga`, Sagas are implemented using Generator functions. To express the Saga logic, we yield plain JavaScript Objects from the Generator. We call those Objects [_Effects_](https://redux-saga.js.org/docs/api/#effect-creators). An Effect is an object that contains some information to be interpreted by the middleware. You can view Effects like instructions to the middleware to perform some operation \(e.g., invoke some asynchronous function, dispatch an action to the store, etc.\).
+В `redux-saga`, Саги реализованы функцией-генератором. Что-бы выразить Saga логику, мы производим(yield) обычный JavaScript объект из генератора. Мы называем такие объекты — эффектами ( [_Effects_](https://redux-saga.js.org/docs/api/#effect-creators) ). Эффект — это объект который содержит некую информацию, которая в свою очередь интерпритируется middleware прослойкой. Вы можете представить эффект как
+инструкцию для middleware которая выполнит некую операцию (к примеру, вызвать какую-либо асинхронную функцию, задиспатчить экшн в стор, и т.д\)
 
-To create Effects, you use the functions provided by the library in the `redux-saga/effects` package.
 
-In this section and the following, we will introduce some basic Effects. And see how the concept allows the Sagas to be easily tested.
+Что-бы создать эффект, используется функция предоставленная библеотекой внутри `redux-saga/effects` пакета.
 
-Sagas can yield Effects in multiple forms. The easiest way is to yield a Promise.
+В этом и следующих разделах, мы познакомим вас с основными эффектами. И посмотрим как этот концепт позволяет сагам быть легко 
+тестируемыми.
 
-For example suppose we have a Saga that watches a `PRODUCTS_REQUESTED` action. On each matching action, it starts a task to fetch a list of products from a server.
+Саги могут производить эффекты в различных формах. Легчайший способ — произвести промис.
+
+Например, предположим, что у нас есть сага которая "следит" за `PRODUCTS_REQUESTED` экшином. При каждом совпашем/подходящем экшине, "следящая" сага запускает таску для запроса списка продуктов из сервера.
 
 ```javascript
 import { takeEvery } from 'redux-saga/effects'
